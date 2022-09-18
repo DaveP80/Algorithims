@@ -1,6 +1,8 @@
 package com.logic.dao;
 import com.logic.model.Entry;
 import com.logic.util.ConnectionUtil;
+
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,5 +95,84 @@ public class EntryDao implements IEntryDao {
         return -1;
     }
 
+    public int storeValues(Entry a) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        String sql = "INSERT INTO store_sequence (NodeValue) values (?) RETURNING store_sequence.id";
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, String.valueOf(a.toString()));
+
+            ResultSet rs;
+
+            if ((rs = stmt.executeQuery()) != null) {
+
+                rs.close();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
+    public int readStorage() {
+        Connection conn = ConnectionUtil.getConnection();
+
+        String sql = "SELECT * FROM store_sequence";
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            ResultSet rs;
+            if ((rs = stmt.executeQuery()) != null) {
+                //if we return data, we can iterate over it
+                rs.close();
+
+                return 1;
+
+            }
+
+        } catch (SQLException e) {
+            createStorage();
+            System.out.println("building table..");
+        }
+        return -1;
+    }
+    public int deleteStorage() {
+        Connection conn = ConnectionUtil.getConnection();
+
+        String sql = "DROP TABLE IF EXISTS store_sequence";
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+    public int createStorage() {
+        Connection conn = ConnectionUtil.getConnection();
+
+        String sql = "CREATE TABLE store_sequence (id SERIAL PRIMARY KEY, NodeValue varchar)";
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
 }
 

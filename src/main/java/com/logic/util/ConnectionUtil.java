@@ -36,7 +36,7 @@ public class ConnectionUtil {
 
         try {
 
-            prop.load(new FileReader("C:\\Users\\yourName\\src\\main\\resources\\application.properties"));
+            prop.load(new FileReader("C:\\Users\\david\\Documents\\learning\\Algo1\\src\\main\\resources\\application.properties"));
 
             url = prop.getProperty("url");
             username = prop.getProperty("username");
