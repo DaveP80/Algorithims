@@ -1,0 +1,1 @@
+CREATE TABLE sequences.fibonacci ( id SERIAL PRIMARY KEY, NodeValue varchar );
