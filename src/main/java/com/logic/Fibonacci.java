@@ -1,5 +1,4 @@
 package com.logic;
-import com.logic.service.EntryService;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

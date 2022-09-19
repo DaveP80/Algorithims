@@ -125,7 +125,9 @@ public class EntryDao implements IEntryDao {
             ResultSet rs;
             if ((rs = stmt.executeQuery()) != null) {
                 //if we return data, we can iterate over it
-                rs.next();
+               if (!rs.next()) {
+                   return -2;
+               }
 
                 return rs.getInt(1);
             }

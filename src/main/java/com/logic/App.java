@@ -29,7 +29,7 @@ public class App extends Fibonacci {
                     System.out.print("4.) Exit\n");
                     System.out.print("\nEnter Your Menu Choice: ");
 
-                    while (scan.hasNext("q")) {
+                    if (scan.hasNext("q")) {
                         System.out.println("Exiting Program...");
                         System.exit(0);
                     }
@@ -48,7 +48,7 @@ public class App extends Fibonacci {
                             ed.create();
 
                             System.out.println("Please enter a Value.");
-                            while (scan.hasNext("q")) {
+                            if (scan.hasNext("q")) {
                                 System.out.println("Exiting Program...");
                                 System.exit(0);
                             }
