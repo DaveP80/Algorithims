@@ -50,7 +50,7 @@ public class App extends Fibonacci {
                             }
                             int testinput = scan.nextInt();
 
-                            printFebonachiRecursion(testinput);
+                            printFibonacciRecursion(testinput);
 
                             int i;
                             if (dict.size() >= 50) {
@@ -72,7 +72,6 @@ public class App extends Fibonacci {
                                 es.insertExample(a);
                             }
                             break;
-
 
                         case 2:
                         //will persist current Array to table store_sequence
