@@ -1,5 +1,4 @@
 package com.logic.util;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,7 +14,6 @@ public class ConnectionUtil {
 
     private ConnectionUtil() {
     }
-
     public static Connection getConnection() {
 
         try {
@@ -36,7 +34,7 @@ public class ConnectionUtil {
 
         try {
 
-            prop.load(new FileReader("C:\\Users\\david\\Documents\\learning\\Algo1\\src\\main\\resources\\application.properties"));
+            prop.load(new FileReader("C:\\Users\\yourName\\Documents\\Algorithims\\src\\main\\resources\\application.properties"));
 
             url = prop.getProperty("url");
             username = prop.getProperty("username");

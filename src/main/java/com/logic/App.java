@@ -1,9 +1,7 @@
 package com.logic;
-
 import com.logic.dao.EntryDao;
 import com.logic.model.Entry;
 import com.logic.service.EntryService;
-
 import java.math.BigInteger;
 import java.util.*;
 
@@ -17,7 +15,6 @@ public class App extends Fibonacci {
             EntryService es = new EntryService();
 
             try {
-
                 int choice;
 
                 do {
@@ -39,7 +36,7 @@ public class App extends Fibonacci {
                     choice = scan.nextInt();
 
                     switch (choice) {
-
+                        //every time case 1 is selected, fibonacci table is cleared
                         case 1:
                             if (ed.read() == 1)
                                 ed.delete();
@@ -70,8 +67,6 @@ public class App extends Fibonacci {
                                 System.out.println(dict);
                                 System.out.println("connecting....check DB" + "\n");
                             }
-                            else
-
                             for (i = 1; i <= (dict.size() - 1); i++) {
                                 Entry a = new Entry(dict.get(i));
                                 es.insertExample(a);
@@ -80,37 +75,45 @@ public class App extends Fibonacci {
 
 
                         case 2:
-
+                        //will persist current Array to table store_sequence
+                            //
                             System.out.print("last Generated Result: ");
                             if (dict.isEmpty()) {
                                 System.out.println("empty Array");
                             }
 
-                            if (dict.size()>2) {
+                            if (dict.size() > 2) {
                                 System.out.println(dict.get(dict.size() - 1));
 
                                 System.out.println("would you like to persist this sequence? (1)yes (2)no");
+
+                                int thisInput = scan.nextInt();
+                                if (ed.readStorage() == 1) {
+                                    System.out.println("storage table already full");
+                                    break;
+                                }
+
                                 int j;
-                                if (scan.nextInt() == 1) {
+                                if (thisInput == 1) {
 
                                     for (j = 1; j <= (dict.size() - 1); j++) {
                                         Entry b = new Entry(dict.get(j));
                                         ed.storeValues(b);
                                     }
                                     System.out.println("sequence stored!");
+                                    break;
+                                }
+                                if (thisInput == 2) {
+                                    System.out.println("making a new table");
+
+
+                                    ed.delete();
+                                    ed.create();
                                 }
                             }
 
-                            if (scan.nextInt()==2) {
-                                System.out.println("making a new table");
-
-
-                                ed.delete();
-                                ed.create();
-                            }
                             System.out.println("ready for new data");
                             break;
-
 
                         case 3:
                             System.out.println("press any number to delete storage data, (q) to quit");
@@ -119,13 +122,15 @@ public class App extends Fibonacci {
                                 System.exit(0);
                             }
 
+                            scan.nextInt();
                             if (ed.readStorage() == 1)
                                 ed.deleteStorage();
+                            if (ed.readStorage() == -1)
+                                ed.deleteStorage();
                             if (ed.createStorage() == -1)
-                                System.out.println("\n" + "storage cleared!");
+                                System.out.println("storage cleared!" + "\n");
 
                             break;
-
 
                         case 4:
                             System.out.println("Exiting Program...");
@@ -133,18 +138,13 @@ public class App extends Fibonacci {
                             break;
                         default:
                             System.out.println(choice + " is not a valid Menu Option! Please Select Another.");
-
                     }
-
-                    }
-                    while (choice != 4) ;
-
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-                } catch(InputMismatchException e){
-                    System.out.println("enter integers");
                 }
+                while (choice != 4);
+            } catch (InputMismatchException e) {
+                System.out.println("enter integers");
             }
         }
     }
+}
 

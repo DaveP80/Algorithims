@@ -1,15 +1,10 @@
 package com.logic;
-
-import com.logic.model.Entry;
 import com.logic.service.EntryService;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Fibonacci {
     public static List<BigInteger> dict = new ArrayList<BigInteger>();
-
     public static List<BigInteger> printFebonachiRecursion(int num) {
 
         EntryService as = new EntryService();
@@ -26,6 +21,5 @@ public class Fibonacci {
         }
         return dict;
     }
-
 }
 
