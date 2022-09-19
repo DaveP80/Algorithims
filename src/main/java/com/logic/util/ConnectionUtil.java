@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 // We're going to make a Singleton Connection class
 public class ConnectionUtil {
 
@@ -34,7 +33,7 @@ public class ConnectionUtil {
 
         try {
 
-            prop.load(new FileReader("C:\\Users\\david\\Documents\\learning\\Algo1\\src\\main\\resources\\application.properties"));
+            prop.load(new FileReader("C:\\Users\\yourName\\Documents\\Algo1\\src\\main\\resources\\application.properties"));
 
             url = prop.getProperty("url");
             username = prop.getProperty("username");

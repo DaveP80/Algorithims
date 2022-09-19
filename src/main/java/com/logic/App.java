@@ -3,10 +3,14 @@ import com.logic.dao.EntryDao;
 import com.logic.model.Entry;
 import com.logic.service.EntryService;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class App extends Fibonacci {
     static Scanner scan = new Scanner(System.in);
+    static NumberFormat formatter = new DecimalFormat("0.######E0", DecimalFormatSymbols.getInstance(Locale.ROOT));
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -50,6 +54,12 @@ public class App extends Fibonacci {
                             }
                             int testinput = scan.nextInt();
 
+                            if (testinput == 0 || testinput == 1) {
+                                System.out.println("Base Cases 0 1");
+                                System.out.println("           1 1");
+                                break;
+                            }
+
                             printFibonacciRecursion(testinput);
 
                             int i;
@@ -58,9 +68,20 @@ public class App extends Fibonacci {
                                 for (i = 0; i <= 50; i++) {
                                     printArray.add(dict.get(i));
                                 }
-                                System.out.print(">Generated Value: " + dict.get(dict.size() - 1) + "<");
-                                System.out.println(printArray + ".....");
-                                System.out.println("connecting....check DB" + "\n");
+                                if (dict.size() > 150) {
+
+                                    String str = formatter.format(dict.get(dict.size() - 1));
+                                    System.out.print(">Generated Value: " + str + "<");
+                                    System.out.println(printArray + ".....");
+                                    System.out.println("connecting....check DB" + "\n");
+
+                                }
+
+                                if (dict.size() <= 150 && dict.size() >= 50) {
+                                    System.out.print(">Generated Value: " + dict.get(dict.size() - 1) + "<");
+                                    System.out.println(printArray + ".....");
+                                    System.out.println("connecting....check DB" + "\n");
+                                }
                             }
                             if (dict.size() < 50 && dict.size() > 2) {
                                 System.out.println(">Generated Value: " + dict.get(dict.size() - 1) + "< ");
@@ -74,45 +95,58 @@ public class App extends Fibonacci {
                             break;
 
                         case 2:
-                        //will persist current Array to table store_sequence
-                            //
+                            //will persist current Array to table store_sequence
+                            //initiate new fibonacci generator
                             System.out.print("last Generated Result: ");
                             if (dict.isEmpty()) {
                                 System.out.println("empty Array");
+                                break;
                             }
 
                             if (dict.size() > 2) {
-                                System.out.println(dict.get(dict.size() - 1));
+
+                                if (dict.size() > 150) {
+
+                                    System.out.println(formatter.format(dict.get(dict.size() - 1)));
+                                }
+
+                                if (dict.size() <= 150) {
+                                    System.out.println(dict.get(dict.size() - 1));
+                                }
 
                                 System.out.println("would you like to persist this sequence? (1)yes (2)no");
 
                                 int thisInput = scan.nextInt();
+                                if (thisInput < 1 || thisInput > 2) {
+
+                                    System.out.println("enter 1(yes) or 2(no)");
+                                    thisInput = scan.nextInt();
+                                    if (thisInput < 1 || thisInput > 2) {
+                                        break;
+                                    }
+                                }
+                                if (thisInput == 2) {
+                                    System.out.println("making a new table");
+
+                                    ed.delete();
+                                    ed.create();
+                                    System.out.println("ready for new data");
+                                    break;
+                                }
                                 if (ed.readStorage() == 1) {
                                     System.out.println("storage table already full");
                                     break;
                                 }
 
                                 int j;
-                                if (thisInput == 1) {
 
-                                    for (j = 1; j <= (dict.size() - 1); j++) {
-                                        Entry b = new Entry(dict.get(j));
-                                        ed.storeValues(b);
-                                    }
-                                    System.out.println("sequence stored!");
-                                    break;
+                                for (j = 1; j <= (dict.size() - 1); j++) {
+                                    Entry b = new Entry(dict.get(j));
+                                    ed.storeValues(b);
                                 }
-                                if (thisInput == 2) {
-                                    System.out.println("making a new table");
-
-
-                                    ed.delete();
-                                    ed.create();
-                                }
+                                System.out.println("sequence stored!");
+                                break;
                             }
-
-                            System.out.println("ready for new data");
-                            break;
 
                         case 3:
                             System.out.println("press any number to delete storage data, (q) to quit");
@@ -139,11 +173,12 @@ public class App extends Fibonacci {
                             System.out.println(choice + " is not a valid Menu Option! Please Select Another.");
                     }
                 }
-                while (choice != 4);
+                while (true);
             } catch (InputMismatchException e) {
                 System.out.println("enter integers");
             }
         }
     }
 }
+
 

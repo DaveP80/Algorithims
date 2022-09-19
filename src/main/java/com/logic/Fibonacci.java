@@ -7,7 +7,6 @@ public class Fibonacci {
     public static List<BigInteger> dict = new ArrayList<BigInteger>();
     public static List<BigInteger> printFibonacciRecursion(int num) {
 
-        EntryService as = new EntryService();
         if (num == 1) {
             printFibonacciRecursion(0);
             System.out.printf("Term %d: %d%n", num, 1);
