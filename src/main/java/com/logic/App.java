@@ -1,4 +1,5 @@
 package com.logic;
+
 import com.logic.dao.EntryDao;
 import com.logic.model.Entry;
 import com.logic.service.EntryService;
@@ -10,8 +11,6 @@ import java.util.*;
 
 public class App extends Fibonacci {
     static Scanner scan = new Scanner(System.in);
-
-    static int input = scan.nextInt();
     static NumberFormat formatter = new DecimalFormat("0.######E0", DecimalFormatSymbols.getInstance(Locale.ROOT));
 
     public static void main(String[] args) throws InterruptedException {
@@ -31,29 +30,28 @@ public class App extends Fibonacci {
                     System.out.print("4.) Exit\n");
                     System.out.print("\nEnter Your Menu Choice: ");
 
-                    if (scan.hasNext("q")) {
-                        System.out.println("Exiting Program...");
-                        System.exit(0);
-                    }
-
                     while (!scan.hasNextInt()) {
+                        if (scan.hasNext("q")) {
+                            System.out.println("Exiting Program...");
+                            System.exit(0);
+                        }
                         scan.nextLine();
                     }
+
                     choice = scan.nextInt();
 
                     switch (choice) {
                         //every time case 1 is selected, fibonacci table is cleared
                         case 1:
-                            if (ed.read() == 1)
-                                ed.delete();
-                            dict.clear();
-                            ed.create();
 
-                            System.out.println("Please enter a Value.");
-                            if (scan.hasNext("q")) {
-                                System.out.println("Exiting Program...");
-                                System.exit(0);
+                            if (ed.read() == 1) {
+                                ed.delete();
+                                ed.create();
+                            } else if (ed.read() == 0) {
+                                ed.create();
                             }
+                            System.out.println("Please enter a Value.");
+
                             int testinput = scan.nextInt();
 
                             if (testinput == 0 || testinput == 1) {
@@ -61,7 +59,7 @@ public class App extends Fibonacci {
                                 System.out.println("           1 1");
                                 break;
                             }
-
+                            dict.clear();
                             printFibonacciRecursion(testinput);
 
                             int i;
@@ -141,7 +139,6 @@ public class App extends Fibonacci {
                                 }
 
                                 int j;
-
                                 for (j = 1; j <= (dict.size() - 1); j++) {
                                     Entry b = new Entry(dict.get(j));
                                     ed.storeValues(b);
@@ -149,24 +146,19 @@ public class App extends Fibonacci {
                                 System.out.println("sequence stored!");
                                 break;
                             }
-
                         case 3:
                             System.out.println("press any number to delete storage data, (q) to quit");
-//                            if (scan.hasNext("q")) {
-//                                System.out.println("Exiting Program...");
-//                                System.exit(0);
-//                            }
-                            int input = scan.nextInt();
+
+                            scan.nextInt();
 
                             if (ed.readStorage() == -1) {
                                 ed.createStorage();
-                            }
-                            else if (ed.readStorage() == 1) {
+                            } else if (ed.readStorage() == 1) {
 
                                 ed.deleteStorage();
                                 ed.createStorage();
                             }
-                                System.out.println("storage cleared!" + "\n");
+                            System.out.println("storage cleared!" + "\n");
 
                             break;
 
@@ -180,6 +172,10 @@ public class App extends Fibonacci {
                 }
                 while (true);
             } catch (InputMismatchException e) {
+                if (scan.hasNext("q")) {
+                    System.out.println("Exiting Program...");
+                    System.exit(0);
+                }
                 System.out.println("enter integers");
             }
         }

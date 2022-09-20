@@ -78,14 +78,15 @@ public class EntryDao implements IEntryDao {
             ResultSet rs;
             if ((rs = stmt.executeQuery()) != null) {
                 //if we return data, we can iterate over it
-                rs.close();
-
-                return 1;
+                if (!rs.next()) {
+                    return -2;
+                }
+                return rs.getInt(1);
             }
 
         } catch (SQLException e) {
-            create();
-            System.out.println("building table..");
+
+            return 0;
         }
         return -1;
     }
