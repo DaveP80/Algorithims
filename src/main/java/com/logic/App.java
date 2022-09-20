@@ -10,6 +10,8 @@ import java.util.*;
 
 public class App extends Fibonacci {
     static Scanner scan = new Scanner(System.in);
+
+    static int input = scan.nextInt();
     static NumberFormat formatter = new DecimalFormat("0.######E0", DecimalFormatSymbols.getInstance(Locale.ROOT));
 
     public static void main(String[] args) throws InterruptedException {
@@ -150,17 +152,20 @@ public class App extends Fibonacci {
 
                         case 3:
                             System.out.println("press any number to delete storage data, (q) to quit");
-                            if (scan.hasNext("q")) {
-                                System.out.println("Exiting Program...");
-                                System.exit(0);
-                            }
+//                            if (scan.hasNext("q")) {
+//                                System.out.println("Exiting Program...");
+//                                System.exit(0);
+//                            }
+                            int input = scan.nextInt();
 
-                            scan.nextInt();
-                            if (ed.readStorage() == 1)
+                            if (ed.readStorage() == -1) {
+                                ed.createStorage();
+                            }
+                            else if (ed.readStorage() == 1) {
+
                                 ed.deleteStorage();
-                            if (ed.readStorage() == -1)
-                                ed.deleteStorage();
-                            if (ed.createStorage() == -1)
+                                ed.createStorage();
+                            }
                                 System.out.println("storage cleared!" + "\n");
 
                             break;
