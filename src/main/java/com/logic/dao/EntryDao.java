@@ -1,6 +1,8 @@
 package com.logic.dao;
+
 import com.logic.model.Entry;
 import com.logic.util.ConnectionUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +33,7 @@ public class EntryDao implements IEntryDao {
         }
         return -1;
     }
+
     @Override
     public void delete() {
         Connection conn = ConnectionUtil.getConnection();
@@ -47,6 +50,7 @@ public class EntryDao implements IEntryDao {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public int create() {
         Connection conn = ConnectionUtil.getConnection();
@@ -114,6 +118,7 @@ public class EntryDao implements IEntryDao {
         }
         return -1;
     }
+
     public int readStorage() {
         Connection conn = ConnectionUtil.getConnection();
 
@@ -126,9 +131,9 @@ public class EntryDao implements IEntryDao {
             ResultSet rs;
             if ((rs = stmt.executeQuery()) != null) {
                 //if we return data, we can iterate over it
-               if (!rs.next()) {
-                   return -2;
-               }
+                if (!rs.next()) {
+                    return -2;
+                }
 
                 return rs.getInt(1);
             }
@@ -138,6 +143,7 @@ public class EntryDao implements IEntryDao {
         }
         return 0;
     }
+
     public int deleteStorage() {
         Connection conn = ConnectionUtil.getConnection();
 
@@ -154,6 +160,7 @@ public class EntryDao implements IEntryDao {
         }
         return 0;
     }
+
     public int createStorage() {
         Connection conn = ConnectionUtil.getConnection();
 
