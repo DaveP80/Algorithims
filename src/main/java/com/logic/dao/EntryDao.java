@@ -2,7 +2,6 @@ package com.logic.dao;
 
 import com.logic.model.Entry;
 import com.logic.util.ConnectionUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
