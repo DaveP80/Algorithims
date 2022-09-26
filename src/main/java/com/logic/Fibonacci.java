@@ -27,10 +27,9 @@ public class Fibonacci {
         BigInteger total = BigInteger.valueOf(0);
         BigInteger size = BigInteger.valueOf(dict.size());
 
-        for (int i = 0; i < dict.size(); i++) {
-
+        for (BigInteger bigInteger : dict) {
             BigInteger a
-                    = new BigInteger(String.valueOf(dict.get(i)));
+                    = new BigInteger(String.valueOf(bigInteger));
 
             total = total.add(a);
 
@@ -39,15 +38,12 @@ public class Fibonacci {
     }
 
     public static BigInteger standardDeviation(List<BigInteger> dict) {
-
-        // Step 1:
         BigInteger init = mean(dict);
         BigInteger temp = BigInteger.valueOf(0);
         BigInteger sq;
 
-        for (int i = 0; i < dict.size(); i++) {
-
-            temp = temp.add(((dict.get(i)).subtract(init)).pow(2));
+        for (BigInteger bigInteger : dict) {
+            temp = temp.add((bigInteger.subtract(init)).pow(2));
         }
 
         sq = temp.divide(BigInteger.valueOf(dict.size()));

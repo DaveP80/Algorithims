@@ -63,11 +63,12 @@ public class App extends Fibonacci {
                             printFibonacciRecursion(testinput);
 
                             int i;
-                            if (dict.size() >= 50) {
+                            if (dict.size() >= 51) {
                                 List<BigInteger> printArray = new ArrayList<>();
-                                for (i = 0; i <= 50; i++) {
+                                for (i = 1; i <= 50; i++) {
                                     printArray.add(dict.get(i));
                                 }
+
                                 if (dict.size() > 150) {
 
                                     String str = formatter.format(dict.get(dict.size() - 1));
@@ -77,15 +78,19 @@ public class App extends Fibonacci {
 
                                 }
 
-                                if (dict.size() <= 150 && dict.size() >= 50) {
+                                if (dict.size() <= 150 && dict.size() >= 51) {
                                     System.out.print(">Generated Value: " + dict.get(dict.size() - 1) + "<");
                                     System.out.println(printArray + ".....");
                                     System.out.println("connecting....check DB" + "\n");
                                 }
                             }
-                            if (dict.size() < 50 && dict.size() > 2) {
+                            if (dict.size() <= 50 && dict.size() > 2) {
+                                List<BigInteger> printArray = new ArrayList<>();
+                                for (i = 1; i <= dict.size() - 1; i++) {
+                                    printArray.add(dict.get(i));
+                                }
                                 System.out.println(">Generated Value: " + dict.get(dict.size() - 1) + "< ");
-                                System.out.println(dict);
+                                System.out.println(printArray);
                                 System.out.println("connecting....check DB" + "\n");
                             }
                             for (i = 1; i <= (dict.size() - 1); i++) {
@@ -111,16 +116,13 @@ public class App extends Fibonacci {
                                     System.out.println("Mean: " + formatter.format(mean(dict)));
                                     System.out.println("Standard dev: " + formatter.format(standardDeviation(dict)));
 
-
                                 }
-
                                 if (dict.size() <= 150) {
                                     System.out.println(dict.get(dict.size() - 1));
 //                                    System.out.println(formatter.format(mean(dict)));
                                     System.out.println("Mean: " + mean(dict)); // Average of list elements
                                     System.out.println("Standard dev: " + standardDeviation(dict));
                                 }
-
                                 System.out.println("would you like to persist this sequence? (1)yes (2)no");
 
                                 int thisInput = scan.nextInt();
