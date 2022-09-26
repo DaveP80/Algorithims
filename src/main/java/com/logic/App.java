@@ -108,10 +108,17 @@ public class App extends Fibonacci {
                                 if (dict.size() > 150) {
 
                                     System.out.println(formatter.format(dict.get(dict.size() - 1)));
+                                    System.out.println("Mean: " + formatter.format(mean(dict)));
+                                    System.out.println("Standard dev: " + formatter.format(standardDeviation(dict)));
+
+
                                 }
 
                                 if (dict.size() <= 150) {
                                     System.out.println(dict.get(dict.size() - 1));
+//                                    System.out.println(formatter.format(mean(dict)));
+                                    System.out.println("Mean: " + mean(dict)); // Average of list elements
+                                    System.out.println("Standard dev: " + standardDeviation(dict));
                                 }
 
                                 System.out.println("would you like to persist this sequence? (1)yes (2)no");

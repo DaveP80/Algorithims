@@ -1,7 +1,9 @@
 package com.logic;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 public class Fibonacci {
     public static List<BigInteger> dict = new ArrayList<BigInteger>();
 
@@ -9,10 +11,10 @@ public class Fibonacci {
 
         if (num == 1) {
             printFibonacciRecursion(0);
-            System.out.printf("Term %d: %d%n", num, 1);
+            System.out.format("Term %d: %d%n", num, 1);
             dict.add(BigInteger.ONE);
         } else if (num == 0) {
-            System.out.printf("Term %d: %d%n", num, 0);
+            System.out.format("Term %d: %d%n", num, 0);
             dict.add(BigInteger.ZERO);
         } else {
             printFibonacciRecursion(num - 1);
@@ -21,47 +23,35 @@ public class Fibonacci {
         return dict;
     }
 
-    public static BigInteger mean (ArrayList<BigInteger> dict) {
+    public static BigInteger mean(List<BigInteger> dict) {
         BigInteger total = BigInteger.valueOf(0);
         BigInteger size = BigInteger.valueOf(dict.size());
 
-        for (int i = 2; i < dict.size(); i++) {
+        for (int i = 0; i < dict.size(); i++) {
 
-            if (i % 2 == 0) {
+            BigInteger a
+                    = new BigInteger(String.valueOf(dict.get(i)));
 
-                BigInteger a
-                        = new BigInteger(String.valueOf(dict.get(i)));
-//            BigInteger currentNum = dict.get(i);
-                BigInteger b
-                        = new BigInteger(String.valueOf(dict.get(i + 1)));
+            total = total.add(a);
 
-                total = total.add(a.add(b));
-            }
-
-        }return total.divide(size);
+        }
+        return total.divide(size);
     }
 
-//        public double standardDeviation (ArrayList < BigInteger > dict) {
-//
-//            // Step 1:
-//            double mean = mean(dict);
-//            double temp = 0;
-//
-//            for (int i = 0; i < dict.size(); i++) {
-//                BigInteger val = dict.get(i);
-//
-//                // Step 2:
-//                double squrDiffToMean = Math.pow(val - mean, 2);
-//
-//                // Step 3:
-//                temp += squrDiffToMean;
-//            }
-//
-//            // Step 4:
-//            double meanOfDiffs = (double) temp / (double) (dict.size());
-//
-//            // Step 5:
-//            return Math.sqrt(meanOfDiffs);
-//        }
+    public static BigInteger standardDeviation(List<BigInteger> dict) {
+
+        // Step 1:
+        BigInteger init = mean(dict);
+        BigInteger temp = BigInteger.valueOf(0);
+        BigInteger sq;
+
+        for (int i = 0; i < dict.size(); i++) {
+
+            temp = temp.add(((dict.get(i)).subtract(init)).pow(2));
+        }
+
+        sq = temp.divide(BigInteger.valueOf(dict.size()));
+        return sq.sqrt();
     }
+}
 
